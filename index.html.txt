@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Simple Page</title>
+    <script>
+        function showMessage() {
+            alert("Hola desde JavaScript incrustado! sin gpt esto no me funciona, no tengas dudas!");
+        }
+    </script>
+</head>
+<body>
+    <h1>Hola, Azure!</h1>
+    <p>Esta es mi página HTML simple con JavaScript, alojada en Azure Static Web Apps.</p>
+    <button onclick="showMessage()">Mostrar Mensaje</button>
+</body>
+</html>
