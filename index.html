@@ -5,13 +5,42 @@
     <title>My Simple Page</title>
     <script>
         function showMessage() {
-            alert("Hola desde JavaScript incrustado! sin gpt esto no me funciona, no tengas dudas!");
+            alert("Hola desde JavaScript incrustado!");
+        }
+        window.onload = function mostrarCalendarioSemanal() {
+            const hoy = new Date();
+            const primerDia = new Date(hoy.setDate(hoy.getDate() - hoy.getDay() + 1)); // Ajustar al primer día de la semana (lunes)
+
+            // Actividades para cada día
+            const actividades = [
+                "me bañé, averigüé sobre xyz, hice fideos, compré cosas, lijé una cosa que había que lijar, moví la pila de cosas de estudiar", // Lunes
+                "", // Martes
+                "", // Miércoles
+                "", // Jueves
+                "", // Viernes
+                "", // Sábado
+                ""  // Domingo
+            ];
+
+            const calendario = document.getElementById('calendario-semanal');
+            calendario.innerHTML = '<h2>Esta Semana</h2>';
+            calendario.innerHTML += '<ul>';
+
+            for (let i = 0; i < 7; i++) {
+                const dia = new Date(primerDia);
+                dia.setDate(primerDia.getDate() + i);
+                calendario.innerHTML += `<li>${dia.toLocaleDateString()} - ${actividades[i]}</li>`;
+            }
+
+            calendario.innerHTML += '</ul>';
         }
     </script>
 </head>
 <body>
-    <h1>Hola, Azure!</h1>
-    <p>Esta es mi página HTML simple con JavaScript, alojada en Azure Static Web Apps.</p>
+    <h1>.</h1>
+    <p>.</p>
     <button onclick="showMessage()">Mostrar Mensaje</button>
+    <div id="calendario-semanal"></div>
 </body>
 </html>
+
