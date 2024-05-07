@@ -53,6 +53,10 @@
             text-align: center; /* Texto centrado */
             outline: none; /* Sin contorno al enfocar */
         }
+            h3.hipotesis {
+            font-size: 12px; /* Reducido y en gris */
+            color: grey;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +126,28 @@
         }
         grid.appendChild(fragment);
         updateColorSample();
+         function downloadGrid() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 240;
+            canvas.height = 240;
+            const ctx = canvas.getContext('2d');
+            
+            document.querySelectorAll('.cell').forEach((cell, index) => {
+                const x = (index % 16) * 15;
+                const y = Math.floor(index / 16) * 15;
+                ctx.fillStyle = cell.style.backgroundColor || '#ffffff';
+                ctx.fillRect(x, y, 15, 15);
+            });
+            
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'grid.png';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
     </script>
 </body>
 </html>
