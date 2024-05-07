@@ -41,56 +41,68 @@
         <ul id="lista-actividades">
             <!-- Lista de actividades diarias se agregará aquí -->            
             <p>
-            "Lunes: actividades varias t2 m4 i6 f2 h3",
-            "Martes:",
-            "Miércoles:",
-            "",
-            "",
-            "",
-            </p>
+            "Lunes: actividades varias t2 m4 i6 f2 h3",</p>
+            <p>"Martes:",</p>
+            <p>"Miércoles:",</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
         </ul>
+
+        <h2>Un juego para descubrir las reglas y desbloquear al premio!</h2>
         <div class="grid"></div>
     </div>
     
-    <h1>Actividades</h1>
     
     <script>
         function showMessage() {
             alert("Hola!!");
         }
 
+const grid = document.querySelector('.grid');
+const clickCountDisplay = document.getElementById('clickCount');
+let totalClicks = 0;  // Variable para mantener la cuenta total de clics
 
+for (let i = 0; i < 35 * 35; i++) {
+    const cell = document.createElement('span');
+    cell.classList.add('cell');
+    cell.dataset.colorState = '0';
+    cell.dataset.clicks = '0';  // Inicializando contador de clics para cada celda
+    cell.addEventListener('click', function() {
+        let clicks = parseInt(this.dataset.clicks, 10);  // Obtener el número actual de clics
+        clicks++;  // Incrementar el contador de clics
+        this.dataset.clicks = clicks.toString();  // Guardar el nuevo valor de clics
+        totalClicks++;  // Incrementar el contador total de clics
+        clickCountDisplay.textContent = totalClicks;  // Actualizar el contador en la página
 
-
-
-
-        const grid = document.querySelector('.grid');
-        for (let i = 0; i < 35 * 35; i++) {
-            const cell = document.createElement('span');
-            cell.classList.add('cell');
-            // Inicializando el estado del color en 0
-            cell.dataset.colorState = '0';
-            cell.addEventListener('click', function() {
-                switch (this.dataset.colorState) {
-                    case '0':
-                        this.style.backgroundColor = 'red';
-                        this.dataset.colorState = '1'; // Cambiar al siguiente estado
-                        break;
-                    case '1':
-                        this.style.backgroundColor = 'green';
-                        this.dataset.colorState = '2'; // Cambiar al siguiente estado
-                        break;
-                    case '2':
-                        this.style.backgroundColor = 'blue';
-                        this.dataset.colorState = '0'; // Volver al estado inicial
-                        break;
-                    default:
-                        this.style.backgroundColor = 'transparent'; // Reseteo por si acaso
-                        this.dataset.colorState = '0'; // Reseteo al estado inicial
-                }
-            });
-            grid.appendChild(cell);
+        switch (this.dataset.colorState) {
+            case '0':
+                this.style.backgroundColor = 'red';
+                this.dataset.colorState = '1';
+                break;
+            case '1':
+                this.style.backgroundColor = 'green';
+                this.dataset.colorState = '2';
+                break;
+            case '2':
+                this.style.backgroundColor = 'blue';
+                this.dataset.colorState = '0';
+                break;
+            default:
+                this.style.backgroundColor = 'transparent';
+                this.dataset.colorState = '0';
         }
+        // Opcional: mostrar mensaje cada 100 clics
+        if (totalClicks % 4 === 0) {
+            alert('Te faltan ' + totalClicks + ' clics');
+        }
+    });
+    grid.appendChild(cell);
+}
 
     </script>
 
