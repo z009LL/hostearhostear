@@ -3,65 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Área ASCII</title>
-    <style> 
+    <style>
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Courier New', monospace;
+            font-family: 'Courier New', monospace; /* Fuente monoespaciada */
         }
-
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-top: 20px;
         }
-
         .grid {
             display: grid;
-            grid-template-columns: repeat(35, 20px); /* 255 columnas de 20px cada una */
-            grid-auto-rows: 20px; /* Altura de cada fila de 20px */
+            grid-template-columns: repeat(16, 15px);
+            grid-template-rows: repeat(16, 15px);
             overflow-y: visible;
-            border: 1px solid #000; /* Añadir un borde a la grilla para una mejor visualización */
+            border: 1px solid #0260b8; /* Borde azul */
         }
-
         .cell {
             display: inline-block;
+            width: 15px;
+            height: 15px;
+            border: 1px solid #ffffff; /* Bordes blancos */
+            box-sizing: border-box;
+        }
+        #color-input-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        #color-sample {
             width: 20px;
             height: 20px;
-            border: 1px solid #ddd; /* Bordes de las celdas de la grilla */
+            border-radius: 40%;
+            margin-left: 10px;
+            border: 5px solid #5f5b5b;
+        }
+        input[type="text"] {
+            width: 150px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 150px;
+            padding: 10px;
+            margin-right: 0px;
+            border: none; /* Sin borde */
+            text-align: center; /* Texto centrado */
+            outline: none; /* Sin contorno al enfocar */
         }
     </style>
 </head>
-
+<body>
     <div class="container">
         <h1>Twitgram</h1>
-        
         <button onclick="showMessage()">Elemento saludador para usuarios que de verdad desean ser saludados</button>
         <p> ... </p>
         <button onclick="showMessage2()">Botón que cumple todos tus deseos</button>
         <h2>Actividades</h2>
-        
-        <ul id="lista-actividades">
-            <!-- Lista de actividades diarias se agregará aquí -->            
-            <p>
-            "Lunes: actividades varias, comi fideos, lije unas cosas, ordene los paples, +10% de avance al examen",</p>
-            <p>"Martes:",</p>
-            <p>"Miércoles:",</p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-        </ul>
-
-        <h2>Un juego para descubrir las reglas y desbloquear al premio!</h2>
+        <ul id="lista-actividades"></ul>
+        <h3>IA could eat humans and nice pixel art</h3>
+        <h3>buy thats our lucky reality: IA dont wanna kill inferiors</h3>
+        <h3>here to feed it with pixel art</h3>
+        <h3>feed it, feed it fast! or ir could change mind </h3>
         <div class="grid"></div>
+        <div id="color-input-container">
+            <input type="text" id="color-input" placeholder="Escribe un código de color" />
+            <div id="color-sample"></div>
+        </div>
     </div>
-    
-    
+
     <script>
         function showMessage() {
             alert("Hola!!");
@@ -69,47 +82,48 @@
         function showMessage2() {
             alert("NO HAY PLATA");
         }
-const grid = document.querySelector('.grid');
-const clickCountDisplay = document.getElementById('clickCount');
-let totalClicks = 0;  // Variable para mantener la cuenta total de clics
 
-for (let i = 0; i < 35 * 35; i++) {
-    const cell = document.createElement('span');
-    cell.classList.add('cell');
-    cell.dataset.colorState = '0';
-    cell.dataset.clicks = '0';  // Inicializando contador de clics para cada celda
-    cell.addEventListener('click', function() {
-totalClicks++;
-        switch (this.dataset.colorState) {
-            case '0':
-                this.style.backgroundColor = 'red';
-                this.dataset.colorState = '1';
-                break;
-            case '1':
-                this.style.backgroundColor = 'green';
-                this.dataset.colorState = '2';
-                break;
-            case '2':
-                this.style.backgroundColor = 'blue';
-                this.dataset.colorState = '0';
-                break;
-            default:
-                this.style.backgroundColor = 'transparent';
-                this.dataset.colorState = '0';
-        }
-        // Opcional: mostrar mensaje cada 100 clics
-        if (totalClicks % 7 === 0) {
-            alert('Te faltan ' + totalClicks + ' clics');
-        }
-    });
-    grid.appendChild(cell);
-}
+        const grid = document.querySelector('.grid');
+        const colorInput = document.querySelector('#color-input');
+        const colorSample = document.querySelector('#color-sample');
+        const colors = new Array(64).fill().map((_, i) => `hsl(${i * 360 / 64}, 100%, 50%)`);
+        let currentColorIndex = 0;
 
+        function updateColorSample() {
+            colorSample.style.backgroundColor = colors[currentColorIndex];
+            colorInput.value = colors[currentColorIndex];
+        }
+
+        document.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            currentColorIndex = (currentColorIndex + (event.deltaY < 0 ? -3 : 5) + 64) % 64;
+            updateColorSample();
+        });
+
+        grid.addEventListener('click', (event) => {
+            if (event.target.classList.contains('cell')) {
+                event.target.style.backgroundColor = colors[currentColorIndex];
+            }
+        });
+
+        colorInput.addEventListener('input', () => {
+            const color = colorInput.value;
+            if (/^#[0-9A-F]{6}$/i.test(color)) { // Validación simple de hexadecimal
+                colorSample.style.backgroundColor = color;
+                colors[currentColorIndex] = color;
+            }
+        });
+
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < 16 * 16; i++) {
+            const cell = document.createElement('span');
+            cell.classList.add('cell');
+            fragment.appendChild(cell);
+        }
+        grid.appendChild(fragment);
+        updateColorSample();
     </script>
-
-
-<div>Contador de clics: <span id="totalClicks">0</span></div>
-
-    
 </body>
 </html>
+
+
