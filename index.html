@@ -35,7 +35,7 @@
     <body>
     <div class="container">
         <h1>Twitgram - Planificador Semanal</h1>
-        <button onclick="showMessage()">Mostrar Mensaje</button>
+        <button onclick="showMessage()">El usuario desea ser saludado</button>
         <ul id="lista-actividades">
             <!-- Lista de actividades diarias se agregará aquí -->
         </ul>
@@ -43,18 +43,18 @@
     </div>
     <script>
         function showMessage() {
-            alert("¡Hola! Aquí están tus actividades programadas.");
+            alert("Hola!!");
         }
 
         // Lista de actividades para cada día de la semana
         const actividades = [
-            "Lunes: me bañé, hice fideos, compré cosas",
-            "Martes: trabajé en el jardín, leí un libro",
-            "Miércoles: asistí a un seminario, preparé una cena especial",
-            "Jueves: hice ejercicio, trabajé en proyectos",
-            "Viernes: limpieza general de la casa, fui de compras",
-            "Sábado: visité amigos, vi una película",
-            "Domingo: preparé comidas para la semana, descansé"
+            "Lunes: actividades varias t2 m4 i6 f2 h3",
+            "Martes:",
+            "Miércoles:",
+            "",
+            "",
+            "",
+            ""
         ];
 
         // Añadir actividades a la lista
@@ -84,8 +84,6 @@
             }
         }
 
-        // Cambiar el color de la celda (10, 10) a azul
-        changeCellColor(10, 10, 'blue');
     </script>
 </body>
 <body>
@@ -96,7 +94,7 @@
             const cell = document.createElement('span');
             cell.classList.add('cell');
             cell.addEventListener('click', function() {
-                this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'transparent' : 'red'; // Cambia el color al hacer clic
+                this.style.backgroundColor = this.style.backgroundColor === 'blue' ? 'transparent' : 'white'; // Cambia el color al hacer clic
             });
             grid.appendChild(cell);
         }
