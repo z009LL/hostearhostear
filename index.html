@@ -19,7 +19,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(255, 20px); /* 255 columnas de 20px cada una */
+            grid-template-columns: repeat(35, 20px); /* 255 columnas de 20px cada una */
             grid-auto-rows: 20px; /* Altura de cada fila de 20px */
             overflow-y: visible;
             border: 1px solid #000; /* Añadir un borde a la grilla para una mejor visualización */
@@ -38,7 +38,15 @@
         <h1>Twitgram</h1>
         <button onclick="showMessage()">Elemento saludador para usuarios que de verdad desean ser saludados</button>
         <ul id="lista-actividades">
-            <!-- Lista de actividades diarias se agregará aquí -->
+            <!-- Lista de actividades diarias se agregará aquí -->            
+            <p>
+            "Lunes: actividades varias t2 m4 i6 f2 h3",
+            "Martes:",
+            "Miércoles:",
+            "",
+            "",
+            "",
+            </p>
         </ul>
         <div class="grid"></div>
     </div>
@@ -50,34 +58,39 @@
             alert("Hola!!");
         }
 
-        // Lista de actividades para cada día de la semana
-        const actividades = [
-            "Lunes: actividades varias t2 m4 i6 f2 h3",
-            "Martes:",
-            "Miércoles:",
-            "",
-            "",
-            "",
-            ""
-        ];
 
-        // Añadir actividades a la lista
-        const listaActividades = document.getElementById('lista-actividades');
-        actividades.forEach(actividad => {
-            const item = document.createElement('li');
-            item.textContent = actividad;
-            listaActividades.appendChild(item);
-        });
+
+
+
 
         const grid = document.querySelector('.grid');
-        for (let i = 0; i < 255 * 255; i++) {
+        for (let i = 0; i < 35 * 35; i++) {
             const cell = document.createElement('span');
             cell.classList.add('cell');
+            // Inicializando el estado del color en 0
+            cell.dataset.colorState = '0';
             cell.addEventListener('click', function() {
-                this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'transparent' : 'red';
+                switch (this.dataset.colorState) {
+                    case '0':
+                        this.style.backgroundColor = 'red';
+                        this.dataset.colorState = '1'; // Cambiar al siguiente estado
+                        break;
+                    case '1':
+                        this.style.backgroundColor = 'green';
+                        this.dataset.colorState = '2'; // Cambiar al siguiente estado
+                        break;
+                    case '2':
+                        this.style.backgroundColor = 'blue';
+                        this.dataset.colorState = '0'; // Volver al estado inicial
+                        break;
+                    default:
+                        this.style.backgroundColor = 'transparent'; // Reseteo por si acaso
+                        this.dataset.colorState = '0'; // Reseteo al estado inicial
+                }
             });
             grid.appendChild(cell);
         }
+
     </script>
 
 
