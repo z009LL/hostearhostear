@@ -7,35 +7,38 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: 'Courier New', monospace;
-            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(255, 20px);
-            grid-auto-rows: 20px;
+            grid-template-columns: repeat(255, 20px); /* 255 columnas de 20px cada una */
+            grid-auto-rows: 20px; /* Altura de cada fila de 20px */
             width: 5100px;
             height: 5100px;
             overflow-y: auto;
+            border: 1px solid #000; /* Añadir un borde a la grilla para una mejor visualización */
         }
 
         .cell {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #ddd; /* Bordes de las celdas de la grilla */
         }
     </style>
 </head>
-    <body>
+<body>
     <div class="container">
         <h1>Twitgram - Planificador Semanal</h1>
-        <button onclick="showMessage()">El usuario desea ser saludado</button>
+        <button onclick="showMessage()">Elemento saludador para usuarios desean ser saludados</button>
         <ul id="lista-actividades">
             <!-- Lista de actividades diarias se agregará aquí -->
         </ul>
@@ -73,39 +76,6 @@
                 this.style.backgroundColor = this.style.backgroundColor === 'red' ? 'transparent' : 'red';
             });
             grid.appendChild(cell);
-        }
-
-        // Función para cambiar el color de una celda específica
-        function changeCellColor(x, y, color) {
-            const index = x + y * 255;
-            const cell = document.getElementsByClassName('cell')[index];
-            if(cell) {
-                cell.style.backgroundColor = color;
-            }
-        }
-
-    </script>
-</body>
-<body>
-    <div class="grid"></div>
-    <script>
-        const grid = document.querySelector('.grid');
-        for (let i = 0; i < 255 * 255; i++) {
-            const cell = document.createElement('span');
-            cell.classList.add('cell');
-            cell.addEventListener('click', function() {
-                this.style.backgroundColor = this.style.backgroundColor === 'blue' ? 'transparent' : 'white'; // Cambia el color al hacer clic
-            });
-            grid.appendChild(cell);
-        }
-
-        // Función para referenciar una celda específica
-        function changeCellColor(x, y, color) {
-            const index = x + y * 255; // Calcula el índice basado en la coordenada x, y
-            const cell = document.getElementsByClassName('cell')[index];
-            if(cell) {
-                cell.style.backgroundColor = color;
-            }
         }
     </script>
 </body>
