@@ -1,52 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <title>Twitgram</title>
+    <meta charset="UTF-8">
+    <title>Área ASCII</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: 'Courier New', monospace; /* Fuente de ancho fijo */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Previene el desbordamiento de la página */
+            font-family: 'Courier New', monospace;
         }
-        #caja-texto {
-            width: 800px; /* Ancho fijo */
-            height: 200px; /* Altura fija */
-            border: 1px solid black; /* Borde para visualización clara */
-            margin: 20px; /* Espacio alrededor de la caja de texto */
-            overflow-y: auto; /* Permite desplazamiento vertical si se excede el contenido */
-            white-space: pre-wrap; /* Mantiene el formato del espacio en blanco */
-            font-family: 'Courier New', monospace; /* Asegura que todos los caracteres ocupen el mismo espacio */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(800, 12px); /* 800 columnas, cada una de 12px */
+            grid-auto-rows: 20px; /* Altura de cada fila */
+            width: 9600px; /* 800 * 12px */
+            height: 24000px; /* 1200 * 20px */
+            overflow-y: auto; /* Permite desplazamiento vertical */
+        }
+
+        .cell {
+            display: inline-block;
+            width: 12px;
+            height: 20px;
+            border: 1px solid #ddd; /* Bordes sutiles para cada celda */
         }
     </style>
-    <script>
-        function showMessage() {
-            alert("Hola!");
-        }
-        window.onload = function mostrarCalendarioSemanal() {
-            const hoy = new Date();
-            const primerDia = new Date(hoy.setDate(hoy.getDate() - hoy.getDay() + 1)); // Ajustar al primer día de la semana (lunes)
-            const actividades = [
-                "me bañé, averigüé sobre xyz, hice fideos, compré cosas, lijé una cosa que había que lijar, moví la pila de cosas de estudiar",
-                "", "", "", "", "", ""
-            ];
-            const calendario = document.getElementById('calendario-semanal');
-            calendario.innerHTML = '<h2>Esta Semana</h2><ul>';
-            for (let i = 0; i < 7; i++) {
-                const dia = new Date(primerDia);
-                dia.setDate(primerDia.getDate() + i);
-                calendario.innerHTML += `<li>${dia.toLocaleDateString()} - ${actividades[i]}</li>`;
-            }
-            calendario.innerHTML += '</ul>';
-        }
-    </script>
 </head>
 <body>
-    <h1>Twitgram</h1>
-    <button onclick="showMessage()">El usuario desea ser saludado</button>
-    <div id="calendario-semanal"></div>
-    <textarea id="caja-texto"></textarea>
+    <div class="grid"></div>
+    <script>
+        const grid = document.querySelector('.grid');
+        for (let i = 0; i < 960000; i++) {  // Asumiendo una cuadrícula de 800x1200
+            const cell = document.createElement('span');
+            cell.classList.add('cell');
+            grid.appendChild(cell);
+        }
+    </script>
 </body>
 </html>
 
